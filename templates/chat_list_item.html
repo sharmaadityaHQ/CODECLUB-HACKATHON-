@@ -1,0 +1,14 @@
+{% load static %}
+
+<li class="pointer {% if chat.private %}private_{{ chat.name }}{% endif %}" id={{ chat.pk }}>
+	<img class="thumb" src={% static "images/default.jpg" %}>
+	<div class="chat-info">
+		<h5><b>{{ chat.name }}</b>
+		<span class="timestamp" id="id_timestamp_{{ chat.pk }}">{% if chat.has_msg %}{{ chat.last_msg_time }}{% endif %}</span></h5>
+		<h6><span class="msg" id="latest{{ chat.pk }}">
+		{% if chat.has_msg %}{% if chat.last_msg_author %}{{ chat.last_msg_author }}:{% endif %} {{ chat.last_msg_text }}
+		{% else %}<i>no messages</i>
+		{% endif %}</span>
+		</h6>
+	</div>	
+</li>

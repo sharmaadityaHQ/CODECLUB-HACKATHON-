@@ -1,0 +1,23 @@
+<div class="new-chat-div">
+<h2>New chatroom</h2>
+<form id="new-chat-form" enctype="multipart/form-data" action="/create/" method="post">
+	{% csrf_token %}
+	<table>	{{ form.as_table }}</table>
+	<input type="submit" value="Create"/>
+</form>
+</div>
+
+<script type="text/javascript">
+	$("#id_description").focus(function(e) {
+		$("#id_description").val("")
+		$("#id_description").css("color", "black")
+	})
+	$("#new-chat-form").on('submit', function(e) {
+		e.preventDefault();
+		this.submit();
+		setTimeout(function() {
+			window.location.reload();
+		}, 100);
+		})
+	
+</script>

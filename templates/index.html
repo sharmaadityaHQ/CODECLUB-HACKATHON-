@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}">
+	<title>Sätti</title>
+
+</head>
+<body>
+<script src="{% static "js/jquery.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/jquery.dotdotdot.min.js" %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+{% include "templates/main.js" %}
+
+	<nav class="nav-top">
+			<div class="navbar-header">
+				<div>Sätti</div>
+			</div>
+			<div class="navbar">
+				<p>
+					Signed in as
+					<a id="profile">{{ request.user }}</a>
+					<a href="/signout/">Logout</a>
+				</p>
+			</div>
+	</nav>
+
+	<div class="content">
+		<div id="myModal" class="modal">
+		<span class="close">&times;</span>
+  		<!-- Modal content -->
+	  		<div class="modal-content">
+	  		</div>
+
+		</div>
+			<div class="menu" id="menu">
+				<ul>
+					{% if in_chats %}
+					{% for chat in chats %}
+					{% include "templates/chat_list_item.html" %}
+					{% endfor %}
+					{% else %}
+					<div class="text-center"><i>You're not in any conversations yet! Join a chatroom or create your own?</i></div>
+					{% endif %}
+				</ul>
+				<div class="room-actions">
+					<button id="button-join-room" class="button">Join room</button>
+					<button id="button-create-room" class="button">Create room</button>
+				</div>
+			</div>
+
+			<div class="chat-area">
+					<nav class="open-room-bar">
+						<div class="bar-content">
+							<div id="navbar">
+							</div>
+						</div>					
+					</nav>
+
+
+				<div class="message-section" id="chat_area">
+					<div class="text-center" id="id_choose"><i>Choose a chat to start messaging!</i></div>
+				</div>
+				<div class="write-section">
+					<textarea id="message_text"></textarea>
+					<button class="button" id="send_button">Send</button>
+				</div>
+			</div>
+	</div>
+	<!-- The Modal -->
+
+
+</body>
+
+
+</html>

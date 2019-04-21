@@ -1,0 +1,69 @@
+{% load static %}
+
+<img class="back-btn-modal-profile back-btn-modal" src="{% static "images/back.png" %}">
+
+<div class="profile-content">
+	{% if not request.user.username == username %}
+	<button id="id_private_{{ username }}" class="join-button">Message</button>
+	{% endif %}
+	<div class="profile-image">
+		<img src="{% static "images/default.jpg" %}">
+		<!-- Uploading images not implemented for now
+
+		{% if chatuser.user == request.user %}
+		<form class="form-inline" id="image-form" action="{% url 'upload-image' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+		    <p>
+		    	<div class="button-container">
+			        <input id="id_image" type="file" class=button name="image">
+			    </div>
+		    </p>
+		</form>
+		{% endif %}
+		
+		-->
+	</div>
+	<div class="profile-username">
+		<h1>{{ chatuser.user.username }}</h1>
+	</div>
+	
+	<div class="profile-text">
+			
+				{% if chatuser.user == request.user %}
+				<form class="form-inline" id="text-form" action="{% url 'text' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+					<textarea id="text-input" name="text" form="text-form">{{ chatuser.profile_text }}</textarea>
+				</form>
+					{% else %}
+		<h4 id="h4-text">{{ chatuser.profile_text }}</h4>
+		{% endif %}
+	</div>
+
+</div>
+
+<script>
+
+	$("#text-input").width($("#h4-text").width())
+	$("#text-input").height($("#h4-text").height())
+
+	$("#id_image").change(function() {
+		$("#image-form").submit()
+		$.get(window.location.href
+		 + "profile/" + '{{ request.user.username }}' 
+		 + "/", function(data) {
+		 		$(".modal-content").html(data);
+		 })
+
+		})
+	$(document).keypress(function(e) {
+		if(e.which==13) {
+			e.preventDefault()
+			$("#text-form").submit()
+			}
+		})
+
+	$("#id_private_{{ username }}").click(function() {
+		$.get("{% url 'private-chat' username=username %}")
+		setTimeout(function() {
+			window.location.reload();
+		}, 10);
+	})
+</script>

@@ -1,0 +1,575 @@
+$color-h: #006c84;
+$color-m: #add8e6;
+$color-l: #deeff5;
+$color-button: #add8e6;
+$color-msg: #fff;
+$color-shadow: #888;
+$color-timestamp: #666;
+$color-border: #eee;
+$color-img-border: #aaa;
+$color-border-strong: #444;
+$color-last-seen: #999;
+$color-hover: #deeff5;
+$thumb-s: 30px;
+$thumb-l: 50px;
+
+@mixin white-list {
+	list-style-type: none;
+	padding: 0;
+	overflow-y: auto;
+	cursor: pointer;
+
+	li {
+		background-color: white;
+		overflow: hidden;
+		border-bottom: 1px solid $color-border;
+		&:hover {
+			background-color: $color-button;
+		}
+		display: flex;
+		align-items: center;
+		padding-left: 5px;
+	} 
+}
+
+@mixin small-thumb {
+	height: $thumb-s;
+	width: $thumb-s;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+@mixin large-thumb {
+	height: $thumb-l;
+	width: $thumb-l;
+	border-radius: 50%;
+}
+
+@mixin nav-inner {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+@mixin modal-inner {
+	width: 80%;
+	height: 80%;
+	left: 10%;
+	top: 10%;
+	position: relative;
+}
+
+.timestamp {
+	float: right;
+	font-size: smaller;
+	color: $color-timestamp;
+}
+
+img {
+	cursor: pointer;
+}
+
+textarea {
+	resize: none;
+}
+
+.tip {
+	.tooltiptext {
+		visibility: hidden;
+		background-color: #000;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		padding: 5px 0;
+		position: absolute;
+		z-index: 12;
+		top: -5px;
+		right: 105%;
+		min-width: 80px;
+	}
+	&:hover {
+		.tooltiptext {
+			visibility: visible;
+		}
+	}
+}
+
+.text-center {
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	padding: 10px;
+	color: $color-timestamp;
+}
+
+
+.back-btn-modal {
+	position: absolute;
+	display: none;
+	top: 15px;
+	left: 15px;
+	height: 50px;
+	width: 50px;
+	z-index: 1;
+	opacity: 0.5;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+//top navigation & logo bar
+
+.nav-top {
+	height: 50px;
+	background-color: $color-h;
+	position: fixed;
+	width: 100%;
+
+	.navbar-header {
+		@include nav-inner;
+		float: left;
+		width: 10%;
+		margin-left: 10px;
+		color: $color-l;
+
+		div {
+			cursor: default;
+			font-size: 18px;
+			line-height: 20px;
+		}
+	}
+	.navbar {
+		@include nav-inner;
+		float: right;
+		margin-right: 10px;
+		color: $color-l;
+		a {
+			color: $color-l;
+			cursor: pointer;
+		}
+	}
+}
+
+
+
+//page content
+
+.content {
+	position: absolute;
+	top: 50px;
+	bottom: 0px;
+	width: 100%;
+}
+
+//chatroom menu
+
+.menu {
+	height: 100%;
+	float: left;
+	position: relative;
+	width: 25%;
+
+	.thumb {
+		@include large-thumb;
+	}
+
+	ul {
+		@include white-list;
+		height: 90%;
+		li {
+			height: 80px;
+			div {
+				width: 100%;
+				padding: 0px 10px;
+			}
+		}
+	}
+
+	.room-actions {
+			position: absolute;
+			bottom: 0;		
+			width: 100%;
+			height: 10%;	
+	}
+
+	.button {
+		width: 50%;
+		float: left;
+		height: 100%;
+	}
+}
+
+.chat-area {
+	width: 75%;
+	float: left;
+	position: relative;
+	background-color: $color-l;
+	height: 100%;
+}
+
+.button {
+	background-color: white;
+	border-radius: 5px;
+	border: 2px solid $color-button;
+	&:hover { background-color: $color-button; }
+}
+
+.thumb {
+	border-radius: 50%;
+	float: left;
+}
+
+//chatroom name & users online bar
+
+.open-room-bar {
+	background-color: $color-m;
+	display: none;
+	height: 5%;
+	width: 100%;
+	align-items: center;
+
+	.bar-content {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0px 5px;
+
+		img {
+			@include small-thumb;
+		}
+
+		b {
+			margin-left: 10px;
+			flex: 1;
+			left: 50px;
+			width: 50%;
+		}
+
+		div {
+			float: right;
+			color: $color-last-seen
+		}
+	}
+}
+
+//chatroom messages
+
+.message-section {
+	height: 85%;
+	overflow-x: hidden;
+	width: 100%;
+
+	ul {
+		list-style: none;
+		padding-left: 0;
+	}
+
+	.message {
+		margin: 0px 5px;
+
+		span {
+			display: inline-block;
+			max-width: 85%;
+		}
+
+		.message-span {
+			min-width: 30%;
+		}
+
+		div {
+			padding-right: 5px;
+			margin-left: 5px;
+			border-radius: 10px;
+			min-width: 30%;
+			max-width: 80%;
+			margin-top: 5px;
+			padding-left: 5px;
+			float: left;
+			background-color: $color-msg;
+			box-shadow: 2px 2px 5px $color-shadow;
+		}
+
+		img {
+			@include small-thumb;
+			margin-top: -$thumb-s;
+		}
+	}
+	.room-notify {
+		color: $color-shadow;
+		padding: 0px 45px;
+		margin: 5px 0px;
+	}
+}
+
+//chatroom write section
+
+.write-section {
+	display: none;
+	width: 100%;
+	height: 10%;
+	position: absolute;
+	bottom: 0;
+
+	textarea {
+		width: 80%;
+		height: 100%;
+		float: left;
+		margin: 0;
+		border-radius: 5px;
+		border: 2px solid $color-button;
+	}
+
+	button {
+		width: 20%;
+		height: 100%;
+	}
+}
+
+//modal
+
+.modal {
+	display: none;
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+
+	.modal-content {
+		position: relative;
+		background: $color-l;
+		width: 80vh;
+		height: 80vh;
+		top: 50%;
+		left: 50%;
+		margin-top: -40vh;
+		margin-left: -40vh;
+
+		.join {
+			position: absolute;
+			right: 0;
+		}
+
+		.new-chat-div {
+			width: 80%;
+			height: 80%;
+			margin-top: 10%;
+			margin-left: 10%;
+		}
+	}
+}
+
+//profile page
+
+.profile-content {
+	text-align: center;
+	padding: 50px;
+	overflow: hidden;
+
+	button {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		height: 50px;
+		text-align: center;
+	}
+
+	.profile-image {
+		position: relative;
+		text-align: left;
+		left: 30%;
+		overflow: hidden;
+
+		img {
+			width: 40%;
+			display: inline-block;
+		}
+	}
+
+	.profile-text {
+		text-align: left;
+		width: 60%;
+		margin: 0 auto;
+		display: flex;
+	}
+
+	textarea {
+		resize: none;
+		font-size: 18px;
+		line-height: 1.1;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		font-weight: 500;
+		border-style: none;
+	}
+}
+
+
+//chat info page
+
+.chat-info-div {
+	@include modal-inner;
+
+	button {
+		border: 0;
+		background: transparent;
+		width: $thumb-s;
+		height: $thumb-s;
+		position: absolute;
+		bottom: 5px;
+		z-index: 1;
+
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0.5;
+		}
+		
+		&:hover {
+			img {
+				opacity: 1;
+			}
+		}
+	}
+
+	.button-ban {
+		right: 5px;
+	}
+	.button-admin {
+		right: 40px;
+	}
+}
+
+.chat-info-upper {
+	width: 100%;
+	height: 50%;
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid $color-border;
+
+	h1, h4 {
+		text-align: center;
+	}
+
+	div {
+		width: 50%;
+		height: 100%;
+		float: right;
+
+		img {
+			width: 90%;
+			height: 90%;
+			position: relative;
+			left: 5%;
+			top: 5%;
+			border: 2px solid $color-img-border;
+		}
+
+		form {
+			p {
+				position: absolute;
+				top: 15px;
+				right: 30px;
+				width: 30px;
+				height: 30px;
+			}
+		}
+	}	
+}
+
+.chat-info-lower {
+	width: 100%;
+	height: 50%;
+	display: flex;
+
+	.chat-info-members {
+		max-height: 90%;
+		overflow-y: auto;
+		width: 100%;
+	}
+
+	div {
+		width: 50%;
+		height: 100%;
+		float: left;
+		overflow-x: visible;
+	}
+
+	h4 {
+		height: 10%;
+		text-align: center;
+	}
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+		overflow: auto;
+	}
+
+	li {
+		height: 40px;
+		display: flex;
+		align-items: center;
+		position: relative;
+	}
+
+	img {
+		@include small-thumb
+	}
+}
+
+.chat-info-lower-left {
+	ul {
+		@include white-list;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+}
+
+.chat-info-lower-right {
+	li {
+		padding-left: 30px;
+		height: 20px;
+	}
+}
+
+.chat-info-header {
+	width: 100%;
+}
+//joinable chatrooms page
+
+.join-room {
+	@include modal-inner;
+
+	.joinable-list {
+		max-height: 90%;
+		border: 1px solid $color-border-strong;
+		overflow: auto;
+		background-color: white;
+		position: relative;
+		top: 0;
+	}
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		@include white-list;
+	}
+
+	li {
+		height: $thumb-l;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		border-bottom: 1px solid $color-border;
+
+		img {
+			@include small-thumb;
+		}
+	}
+}

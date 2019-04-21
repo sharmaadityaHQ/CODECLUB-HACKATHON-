@@ -1,0 +1,38 @@
+{% load static %}
+<div class="join-room">
+	<div class="join-room-bar">
+		<div class="heading">
+			<h2>Joinable chatrooms</h2>
+			<h6>Click on a room name to see info and join</h6>
+		</div>
+	</div>
+	{% if joinable_rooms %}
+	<div class="joinable-list">
+	<ul>
+		{% for room in joinable_rooms %}
+		<li id="joinable-{{ room.pk }}"><img src="{% static "images/default.jpg" %}">{{ room.name }}</li>
+		{% endfor %}
+	</ul>
+	</div>
+	{% else %}
+	<div class="text-center">
+	<i>Whoops! Looks like you have already joined all the possible rooms.</i>
+	</div>
+	<ul>
+	{% endif %}
+</div>
+
+<script type="text/javascript">
+	{% for room in joinable_rooms %}
+	$("#joinable-{{ room.pk }}").click(function() {
+		prev = $(".modal-content").html()
+		$.get(window.location.href + 'chatroom/{{ room.pk }}/', function(data) {
+			$(".modal-content").html(data);
+			$(".back-btn-modal-chatroom").css("display", "block")
+			$(".back-btn-modal-chatroom").click(function(e) {
+				$(".modal-content").html(prev);
+			})
+		})
+	})
+	{% endfor %}
+</script>

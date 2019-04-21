@@ -1,0 +1,12 @@
+{% load static %}
+<ul>
+	{% for room in rooms %}
+	<li id={{ room.pk }}>
+		<img class="menu-thumb" src="{% static "images/default.jpg" %}" alt="">
+		<div class="chat-info">
+			<h5><b>{{ room.name }}</b><span class="timestamp">{{ room.latest_message.created_at }}</span></h5>
+			<h6><span class="msg">{{ room.latest_message.author }}:{{ room.latest_message.text }}</span></h6>
+		</div>	
+	</li>
+	{% endfor %}
+</ul>

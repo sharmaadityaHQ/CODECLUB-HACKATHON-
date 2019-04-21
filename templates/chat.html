@@ -1,0 +1,33 @@
+{% load static %}
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+   {% for chatuser in users %}
+   $(".{{ chatuser.user.username }}").click(function() {
+      $.get("profile/{{ chatuser.user.username }}/", function(data) {
+         $(".modal-content").html(data);
+         $("#myModal").css("display", "block");
+      })
+   })
+   {% endfor %}
+});
+</script>
+
+   {% if messages.exists %}
+   {% for message in messages %}
+   {% if message.notification == True %}
+   <li class="room-notify"><b>{{ message.text }}</b></li>
+   {% else %}
+   <li class="message">
+      <span>
+         <img src="/static/images/default.jpg" class="pointer {{ message.author }}"></span><span class="message-span">
+         <div><h5 id="id_message_{{ message.pk }}">{{ message.text }}</h5></div>
+         </span>
+         <span class="timestamp">{{ message.created_at|date:"o-m-d H:i:s" }}</span>
+         </li>
+   {% endif %}
+   {% endfor %}
+   {% else %}
+   <div class="text-center" id="no-messages-{{ id }}"><i>No messages yet!</i></div>
+   {% endif %}
